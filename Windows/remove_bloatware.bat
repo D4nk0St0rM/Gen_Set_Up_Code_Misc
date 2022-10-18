@@ -1,5 +1,6 @@
 @echo off
 :: Ensure admin privileges
+:: Created using Privacy.Sexy
 fltmc >nul 2>&1 || (
     echo Administrator privileges are required.
     PowerShell Start -Verb RunAs '%0' 2> nul || (
