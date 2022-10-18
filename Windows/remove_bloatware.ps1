@@ -1,5 +1,4 @@
 @echo off
-:: https://privacy.sexy — v0.11.4 — Tue, 18 Oct 2022 07:57:44 GMT
 :: Ensure admin privileges
 fltmc >nul 2>&1 || (
     echo Administrator privileges are required.
