@@ -22,8 +22,7 @@
 - Monerujo
 - Onionshare
 - Orbot
-- OsmAnd
-    - Or HereWeGo
+- OsmAnd (Or HereWeGo)
 - PilferShush
 - PrivcyBlur
 - Proton
@@ -44,8 +43,9 @@
 
 ##### Shortcuts
 
-- Invidious
+- [Invidious](https://invidious.io/) (YouTube front end without tracking or ads)
 - dedigger
+- ProtonDrive
 
 ##### Search Engine
 
