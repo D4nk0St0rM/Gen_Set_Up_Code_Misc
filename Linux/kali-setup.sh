@@ -7,6 +7,9 @@
 # Enable debug mode
 # set -x
 
+echo -e
+echo -e
+
 # Colour output
 RED="\033[01;31m"      # Issues/Errors
 GREEN="\033[01;32m"    # Success
@@ -15,11 +18,21 @@ BLUE="\033[01;34m"     # Heading
 BOLD="\033[01;01m"     # Highlight
 RESET="\033[00m"       # Normal
 
-# Exclude regular history entries
-export HISTIGNORE="&:ls:[bf]g:exit:history"
-
+OLDCONF=$(dpkg -l|grep "^rc"|awk '{print $2}')
+CURKERNEL=$(uname -r|sed 's/-*[a-z]//g'|sed 's/-386//g')
+LINUXPKG="linux-(image|headers|debian-modules|restricted-modules)"
+METALINUXPKG="linux-(image|headers|restricted-modules)-(generic|i386|server|common|rt|xen)"
 mylist="https://raw.githubusercontent.com/D4nk0St0rM/Gen_Tech_Set_Up_Code_Misc/main/Linux/Kali_Linux/app-install.list"
 gitlist="https://raw.githubusercontent.com/D4nk0St0rM/Gen_Tech_Set_Up_Code_Misc/main/Linux/Kali_Linux/git-clone.list"
+
+echo -e $BLUE"=======================Kali-Config-SetUp========================================"$RESET
+echo -e $BLUE"=             Dirty Rough config script for new Kali install                   ="$RESET
+echo -e $BLUE"================================================================================"$RESET
+echo -e
+echo -e
+
+# Exclude regular history entries
+export HISTIGNORE="&:ls:[bf]g:exit:history"
 
 # update
 echo -e "\n ${GREEN}[+]${RESET} ${GREEN}Updating OS${RESET} from repositories ~ this ${BOLD}may take a while${RESET} depending on your connection & last time you updated / distro version"
@@ -69,6 +82,7 @@ do
         echo $app >> app_not_installed.list
     fi
 done
+
 
 echo -e "\n ${GREEN}[+]${RESET} Installation of applications ${GREEN} - tempomail ${RESET}"
 wget https://github.com/kavishgr/tempomail/releases/download/1.1.0/linux-amd64-tempomail.tgz
@@ -143,3 +157,21 @@ sudo pip3 install --upgrade setuptools
 sudo python3 -m pip install impacket
 sudo python2 -m pip install impacket
 sudo pip install badchars
+
+# clean up
+echo -e $YELLOW"clean-up - Cleaning apt cache..."$RESET
+sudo aptitude clean
+
+echo -e $YELLOW"clean-up - Removing old config files..."$RESET
+sudo aptitude purge $OLDCONF
+
+echo -e $YELLOW"clean-up - Removing old kernels..."$RESET
+sudo aptitude purge $OLDKERNELS
+
+echo -e $YELLOW"clean-up - Emptying every trashes..."$RESET
+rm -rf /home/*/.local/share/Trash/*/** &> /dev/null
+rm -rf /root/.local/share/Trash/*/** &> /dev/null
+
+echo -e $RED"...Donezo..."$RESET
+echo -e
+echo -e $RED".....best wishes, warmest regards........."$RESET
