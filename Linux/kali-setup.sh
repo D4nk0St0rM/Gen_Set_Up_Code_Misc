@@ -22,12 +22,16 @@ OLDCONF=$(dpkg -l|grep "^rc"|awk '{print $2}')
 CURKERNEL=$(uname -r|sed 's/-*[a-z]//g'|sed 's/-386//g')
 LINUXPKG="linux-(image|headers|debian-modules|restricted-modules)"
 METALINUXPKG="linux-(image|headers|restricted-modules)-(generic|i386|server|common|rt|xen)"
-mylist="https://raw.githubusercontent.com/D4nk0St0rM/Gen_Tech_Set_Up_Code_Misc/main/Linux/Kali_Linux/app-install.list"
-gitlist="https://raw.githubusercontent.com/D4nk0St0rM/Gen_Tech_Set_Up_Code_Misc/main/Linux/Kali_Linux/git-clone.list"
+mylist="https://raw.githubusercontent.com/D4nk0St0rM/Gen_Set_Up_Code_Misc/main/Linux/app-install.list"
+gitlist="https://raw.githubusercontent.com/D4nk0St0rM/Gen_Set_Up_Code_Misc/main/Linux/git-clone.list"
+myvim="https://raw.githubusercontent.com/D4nk0St0rM/Gen_Set_Up_Code_Misc/main/Linux/vimrc"
+myzsh="https://raw.githubusercontent.com/D4nk0St0rM/Gen_Set_Up_Code_Misc/main/Linux/zshrc"
+mytmux="https://raw.githubusercontent.com/D4nk0St0rM/Gen_Set_Up_Code_Misc/main/Linux/tmux.conf"
+mybash="https://raw.githubusercontent.com/D4nk0St0rM/Gen_Set_Up_Code_Misc/main/Linux/bashrc"
 
-echo -e $BLUE"=======================Kali-Config-SetUp========================================"$RESET
-echo -e $BLUE"=             Dirty Rough config script for new Kali install                   ="$RESET
-echo -e $BLUE"================================================================================"$RESET
+echo -e $RED"=======================Kali-Config-SetUp========================================"$RESET
+echo -e $RED"=             Dirty Rough config script for new Kali install                   ="$RESET
+echo -e $RED"================================================================================"$RESET
 echo -e
 echo -e
 
@@ -157,6 +161,27 @@ sudo pip3 install --upgrade setuptools
 sudo python3 -m pip install impacket
 sudo python2 -m pip install impacket
 sudo pip install badchars
+
+
+# ohmyzsh
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#--- Configure zsh
+file=~/.zshrc; [ -e "$file" ] && cp -n $file{,.bkup}   #/etc/zsh/zshrc
+
+wget $myzsh
+mv zshrc $file
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+sudo apt install tmux
+
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+wget $mytmux
+mv tmux.conf .tmux.conf
+wget $mybash
+mv ~/.bashrc ~/.bashrc_bak
+mv bashrc ~/.bashrc
+
 
 # clean up
 echo -e $YELLOW"clean-up - Cleaning apt cache..."$RESET
